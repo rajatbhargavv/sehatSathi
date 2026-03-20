@@ -1,0 +1,26 @@
+:root {
+  --color-primary: #4f86c6;
+  --color-secondary: #6dbf9e;
+  --color-bg: #f9f9f9;
+  --color-text: #2d2d2d;
+  --color-muted: #8a8a8a;
+  --radius: 12px;
+  --shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+.main-layout { display: flex; flex-direction: column; min-height: 100vh; }
+.main-content { flex: 1; padding: 1rem; }
+.bottom-nav { display: flex; justify-content: space-around; padding: 0.75rem; background: #fff; border-top: 1px solid #eee; }
+.bottom-nav__item { background: none; border: none; cursor: pointer; font-size: 0.85rem; }
+.bottom-nav__item.active { color: var(--color-primary); font-weight: 600; }
+.role-switcher { display: flex; gap: 0.5rem; padding: 0.5rem 1rem; background: #fff3cd; font-size: 0.8rem; align-items: center; }
+.role-switcher button { padding: 0.25rem 0.75rem; border-radius: 99px; border: 1px solid #ccc; cursor: pointer; }
+.role-switcher button.active { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
