@@ -49,3 +49,11 @@ export const validateDoctor=(doctor)=>{
     
     return errors;
 }
+
+export const isEqual=(val1,val2)=>{    //2 strings ko compare krke boolean value return karega(used in various external files)
+    if(isEmpty(val1) || isEmpty(val2))
+        return false;
+    if(val1.trim().toLowerCase()===val2.trim().toLowerCase())
+        return true;
+    return false;
+}
