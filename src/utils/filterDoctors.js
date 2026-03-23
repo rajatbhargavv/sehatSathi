@@ -1,7 +1,11 @@
 import { isEqual } from "./validation";
 export const filterDoctors = (doctors, { specialty = '',area='' } = {}) => {
-  if (!specialty) return doctors;
+  if (!specialty && !area) return doctors;
   return doctors.filter((d) =>
-    d.specialty?.toLowerCase().includes(specialty.toLowerCase())
+  {
+    const specialtyMatch=isEqual(specialty,d.specialty);
+    const areaMatch=isEqual(area,d.area);
+    return specialtyMatch && areaMatch;
+  }
   );
 };
