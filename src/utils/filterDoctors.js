@@ -5,7 +5,7 @@ export const filterDoctors = (doctors, { specialty = '',area='' } = {}) => {
   {
     const specialtyMatch=isEqual(specialty,d.specialty);
     const areaMatch=isEqual(area,d.area);
-    return specialtyMatch && areaMatch;
+    return specialtyMatch || areaMatch;
   }
   );
 };
