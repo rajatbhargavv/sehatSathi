@@ -6,8 +6,8 @@ import { STORAGE_KEYS } from "../constants/storageKeys";
 const DOCTORS = STORAGE_KEYS.DOCTORS; // key we are using to access doctors array.
 
 
-// function to get all doctors
-export const getDoctors = () => {
+// function to get all doctors - Returns a Promise for consistency - Rajat
+export const getDoctors = async () => {
     try {
         const doctors = localStorage.getItem(DOCTORS);
         if (!doctors) return [];
@@ -20,7 +20,7 @@ export const getDoctors = () => {
     }
 };
 
-export const setDoctors = (doctors) => {
+export const setDoctors = async (doctors) => {
     try {
         localStorage.setItem(DOCTORS, JSON.stringify(doctors));
     } catch (error) {
