@@ -12,15 +12,15 @@ import HealthTipPage from '../../features/healthTips/HealthTipPage';
 const AppRoutes = () => {
   return (
     <BrowserRouter>
-      <MainLayout>
         <Routes>
+          <Route element={<MainLayout/>}>
           <Route path={ROUTES.HOME} element={<Navigate to={ROUTES.REMINDERS} replace />} />
           <Route path={ROUTES.REMINDERS} element={<ReminderPage />} />
           <Route path={ROUTES.DOCTORS} element={<DoctorPage />} />
           <Route path={ROUTES.HOSPITALS} element={<HospitalPage />} />
           <Route path={ROUTES.HEALTH_TIPS} element={<HealthTipPage />} />
+          </Route>
         </Routes>
-      </MainLayout>
     </BrowserRouter>
   );
 };

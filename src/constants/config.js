@@ -4,4 +4,4 @@ export const ROLES = {
   FAMILY: 'family',
 };
 
-export const DEFAULT_ROLE = ROLES.ELDER;
+export const DEFAULT_ROLE = ROLES.FAMILY;
