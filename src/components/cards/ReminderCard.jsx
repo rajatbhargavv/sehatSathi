@@ -1,6 +1,5 @@
 import React from 'react';
 import Card from '../ui/Card';
-
 // Updated to render reminder data and handle deletion - Rajat
 // Added onDelete callback to persist changes to localStorage
 const ReminderCard = ({ data, readOnly = false, handleDeleteReminder}) => {

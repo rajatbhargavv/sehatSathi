@@ -2,6 +2,7 @@
 
 // importing the key to access doctors array from localStorage
 import { STORAGE_KEYS } from "../constants/storageKeys";
+import { getStoredJSON, setStoredJSON } from "../utils/storage";
 
 const DOCTORS = STORAGE_KEYS.DOCTORS; // key we are using to access doctors array.
 
@@ -9,10 +10,8 @@ const DOCTORS = STORAGE_KEYS.DOCTORS; // key we are using to access doctors arra
 // function to get all doctors - Returns a Promise for consistency - Rajat
 export const getDoctors = async () => {
     try {
-        const doctors = localStorage.getItem(DOCTORS);
-        if (!doctors) return [];
-
-        const data = JSON.parse(doctors);
+        // Read doctors list from localStorage with safe JSON parsing
+        const data = getStoredJSON(DOCTORS, []);
         return Array.isArray(data) ? data : [];
     } catch (error) {
         console.error("Error fetching doctors:", error);
@@ -22,7 +21,8 @@ export const getDoctors = async () => {
 
 export const setDoctors = async (doctors) => {
     try {
-        localStorage.setItem(DOCTORS, JSON.stringify(doctors));
+        // Persist doctors list back to localStorage
+        setStoredJSON(DOCTORS, doctors);
     } catch (error) {
         console.error("Error setting doctors:", error);
     }
