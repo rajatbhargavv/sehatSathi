@@ -3,6 +3,7 @@
 // importing the key to access doctors array from localStorage
 import { STORAGE_KEYS } from "../constants/storageKeys";
 import { getStoredJSON, setStoredJSON } from "../utils/storage";
+import { geocodePlace } from "./geocodeService";
 
 const DOCTORS = STORAGE_KEYS.DOCTORS; // key we are using to access doctors array.
 
@@ -26,4 +27,26 @@ export const setDoctors = (doctors) => {
     } catch (error) {
         console.error("Error setting doctors:", error);
     }
+};
+
+// Add a doctor and auto-derive coordinates from address/city/area when lat/lng are missing.
+// Uses geocoding API; falls back silently if geocoding fails.
+export const addDoctor = async (doctor) => {
+    const current = getDoctors();
+    const nextId = doctor?.id ?? (current.length ? Math.max(...current.map((d) => d.id ?? 0)) + 1 : 1);
+
+    let enriched = { ...doctor, id: nextId };
+    if (enriched.lat == null || enriched.lng == null) {
+        const query = enriched.address || enriched.city || enriched.area;
+        if (query) {
+            const coords = await geocodePlace(query);
+            if (coords) {
+                enriched = { ...enriched, ...coords };
+            }
+        }
+    }
+
+    const updated = [...current, enriched];
+    setDoctors(updated);
+    return enriched;
 };
