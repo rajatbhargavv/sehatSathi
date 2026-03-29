@@ -7,8 +7,8 @@ import { getStoredJSON, setStoredJSON } from "../utils/storage";
 const DOCTORS = STORAGE_KEYS.DOCTORS; // key we are using to access doctors array.
 
 
-// function to get all doctors - Returns a Promise for consistency - Rajat
-export const getDoctors = async () => {
+// function to get all doctors (synchronous)
+export const getDoctors = () => {
     try {
         // Read doctors list from localStorage with safe JSON parsing
         const data = getStoredJSON(DOCTORS, []);
@@ -19,7 +19,7 @@ export const getDoctors = async () => {
     }
 };
 
-export const setDoctors = async (doctors) => {
+export const setDoctors = (doctors) => {
     try {
         // Persist doctors list back to localStorage
         setStoredJSON(DOCTORS, doctors);

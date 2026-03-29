@@ -6,22 +6,22 @@ export const useReminders = () => {
 
   // Load reminders from localStorage on component mount - Rajat
   useEffect(() => {
-    getReminders().then(setReminders);
+    setReminders(getReminders());
   }, []);
 
   // Function to handle adding a new reminder - Rajat
   // Updates localStorage and refreshes the reminder list
-  const handleAddReminder = async (reminder) => {
-    await addReminder(reminder);
-    const updatedReminders = await getReminders();
+  const handleAddReminder = (reminder) => {
+    addReminder(reminder);
+    const updatedReminders = getReminders();
     setReminders(updatedReminders);
   };
 
   // Function to handle deleting a reminder - Rajat
   // Updates localStorage and refreshes the reminder list
-  const handleDeleteReminder = async (id) => {
-    await deleteReminder(id);
-    const updatedReminders = await getReminders();
+  const handleDeleteReminder = (id) => {
+    deleteReminder(id);
+    const updatedReminders = getReminders();
     setReminders(updatedReminders);
   };
 
