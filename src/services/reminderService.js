@@ -1,4 +1,5 @@
 import { STORAGE_KEYS } from '../constants/storageKeys';
+import { getStoredJSON, setStoredJSON } from '../utils/storage';
 
 const REMINDERS = STORAGE_KEYS.REMINDERS; // Key to access reminders array in localStorage - Rajat
 
@@ -6,10 +7,8 @@ const REMINDERS = STORAGE_KEYS.REMINDERS; // Key to access reminders array in lo
 // If no reminders exist, returns an empty array
 export const getReminders = async () => {
   try {
-    const remindersData = localStorage.getItem(REMINDERS);
-    if (!remindersData) return [];
-    
-    const data = JSON.parse(remindersData);
+    // Read reminders list from localStorage with safe JSON parsing
+    const data = getStoredJSON(REMINDERS, []);
     return Array.isArray(data) ? data : [];
   } catch (error) {
     console.error('Error fetching reminders:', error);
@@ -21,7 +20,8 @@ export const getReminders = async () => {
 // This ensures reminders persist across page refreshes
 export const setReminders = (reminders) => {
   try {
-    localStorage.setItem(REMINDERS, JSON.stringify(reminders));
+    // Persist reminders list to localStorage
+    setStoredJSON(REMINDERS, reminders);
   } catch (error) {
     console.error('Error setting reminders:', error);
   }

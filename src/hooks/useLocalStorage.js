@@ -1,22 +1,16 @@
 import { useState } from 'react';
+import { getStoredJSON, setStoredJSON } from '../utils/storage';
 
 export const useLocalStorage = (key, initialValue) => {
-  const [storedValue, setStoredValue] = useState(() => {
-    try {
-      const item = window.localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
-    } catch {
-      return initialValue;
-    }
-  });
+  // setStoredValue is the React state setter; we mirror state into localStorage for persistence
+  const [storedValue, setStoredValue] = useState(() =>
+    getStoredJSON(key, initialValue)
+  );
 
   const setValue = (value) => {
-    try {
-      setStoredValue(value);
-      window.localStorage.setItem(key, JSON.stringify(value));
-    } catch (err) {
-      console.error('useLocalStorage error:', err);
-    }
+    // Update React state immediately, then persist the same value
+    setStoredValue(value);
+    setStoredJSON(key, value);
   };
 
   return [storedValue, setValue];
