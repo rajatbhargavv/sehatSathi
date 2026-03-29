@@ -3,9 +3,9 @@ import { getStoredJSON, setStoredJSON } from '../utils/storage';
 
 const REMINDERS = STORAGE_KEYS.REMINDERS; // Key to access reminders array in localStorage - Rajat
 
-// Function to get all reminders from localStorage
+// Function to get all reminders from localStorage (synchronous)
 // If no reminders exist, returns an empty array
-export const getReminders = async () => {
+export const getReminders = () => {
   try {
     // Read reminders list from localStorage with safe JSON parsing
     const data = getStoredJSON(REMINDERS, []);
@@ -16,7 +16,7 @@ export const getReminders = async () => {
   }
 };
 
-// Function to save reminders to localStorage - Rajat
+// Function to save reminders to localStorage - Rajat (synchronous)
 // This ensures reminders persist across page refreshes
 export const setReminders = (reminders) => {
   try {
@@ -27,18 +27,18 @@ export const setReminders = (reminders) => {
   }
 };
 
-// Function to add a new reminder and save to localStorage - Rajat
-export const addReminder = async (reminder) => {
+// Function to add a new reminder and save to localStorage - Rajat (synchronous)
+export const addReminder = (reminder) => {
   const newReminder = { ...reminder, id: Date.now() };
-  const reminders = await getReminders();
+  const reminders = getReminders();
   const updatedReminders = [...reminders, newReminder];
   setReminders(updatedReminders);
   return newReminder;
 };
 
-// Function to delete a reminder and save updated list to localStorage - Rajat
-export const deleteReminder = async (id) => {
-  const reminders = await getReminders();
+// Function to delete a reminder and save updated list to localStorage - Rajat (synchronous)
+export const deleteReminder = (id) => {
+  const reminders = getReminders();
   const filteredReminders = reminders.filter(r => r.id !== id);
   setReminders(filteredReminders);
   return id;

@@ -7,7 +7,7 @@ export const useDoctors = () => {
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    getDoctors().then(setAllDoctors);
+    setAllDoctors(getDoctors());
   }, []);
 
   const doctors = filterDoctors(allDoctors, { specialty: filter });
