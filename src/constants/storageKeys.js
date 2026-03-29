@@ -6,8 +6,8 @@
     HEALTH_TIPS -> stores all the health tips data
 */
 export const STORAGE_KEYS = {
-    DOCTORS: "carebridge_doctors",
-    REMINDERS: "carebridge_reminders",
-    HOSPITALS: "carebridge_hospitals",
-    HEALTH_TIPS: "carebridge_health_tips"
+    DOCTORS: "sehatsathi_doctors",
+    REMINDERS: "sehatsathi_reminders",
+    HOSPITALS: "sehatsathi_hospitals",
+    HEALTH_TIPS: "sehatsathi_health_tips"
 };
