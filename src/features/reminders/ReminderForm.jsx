@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { validateReminder } from "../../utils/validation";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
-export default function ReminderForm({setReminderList}){
+export default function ReminderForm({handleAddReminder}){
 const [formData,setFormData]=useState({
   medicineName:"",
   time:"",
@@ -21,7 +21,7 @@ const handleSubmit=()=>{
     setErrors(check.errors);
     return;
   }
-  setReminderList((prev)=>[...prev,{...formData,id:Date.now().toString()}]);
+  handleAddReminder({...formData});
    setFormData({
       medicineName: "",
       time: "",

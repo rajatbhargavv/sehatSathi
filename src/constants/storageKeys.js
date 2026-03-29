@@ -4,6 +4,6 @@
     REMINDERS -> stores all the reminders data
 */
 export const STORAGE_KEYS = {
-    DOCTORS: "carebridge_doctors",
-    REMINDERS: "carebridge_reminders"
+    DOCTORS: "sehatSathi_doctors",
+    REMINDERS: "sehatSathi_reminders"
 };
