@@ -1,5 +1,5 @@
 /*
-    This file contains the constant we are using to access local storage
+    This file contains the constant we are using to store in local storage
     DOCTORS -> stores all the doctors data
     REMINDERS -> stores all the reminders data
     HOSPITALS -> stores all the hospitals data
