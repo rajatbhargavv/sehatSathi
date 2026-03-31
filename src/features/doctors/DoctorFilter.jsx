@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
-
-const DoctorFilter = ({ onFilter }) => {
-  const [specialty, setSpecialty] = useState('');
+import Select from "../../components/ui/Select";
+const DoctorFilter = ({selectedSpecialty,setSelectedSpecialty,selectedArea,setSelectedArea}) => {
+ 
   return (
-    <div className="doctor-filter">
-      <input
-        placeholder="Filter by specialty..."
-        value={specialty}
-        onChange={(e) => { setSpecialty(e.target.value); onFilter?.(e.target.value); }}
+    <div className="space-y-3">
+      <Select
+        placeholder="Filter by specialty"
+        value={selectedSpecialty}
+        onChange={(e) => { setSelectedSpecialty(e.target.value); }}
+        options={["Cardiologist", "Dentist", "General"]}/>
+      <Select
+        placeholder="Filter by area"
+        value={selectedArea}
+        onChange={(e) => { setSelectedArea(e.target.value);  }}
+        options={["Delhi", "Noida", "Gurgaon"]}
       />
     </div>
   );

@@ -1,15 +1,15 @@
 export const doctors = [
-  // { id, name, specialty, hospital, rating, available }
-{ id: 1,  name: "Dr. Amit Sharma",   specialty: "Cardiologist",       hospital: "Apollo Hospital",    area: "Delhi",          rating: 4.7, available: true  },
-{ id: 2,  name: "Dr. Neha Verma",    specialty: "Dermatologist",      hospital: "Fortis Hospital",    area: "Gurgaon",        rating: 4.5, available: false },
-{ id: 3,  name: "Dr. Rajesh Gupta",  specialty: "Orthopedic",         hospital: "Max Healthcare",     area: "Noida",          rating: 4.6, available: true  },
-{ id: 4,  name: "Dr. Sneha Kapoor",  specialty: "Pediatrician",       hospital: "AIIMS",              area: "New Delhi",      rating: 4.8, available: true  },
-{ id: 5,  name: "Dr. Vikram Singh",  specialty: "Neurologist",        hospital: "Medanta",            area: "Gurgaon",        rating: 4.4, available: false },
-{ id: 6,  name: "Dr. Priya Mehta",   specialty: "Gynecologist",       hospital: "Columbia Asia",      area: "Bangalore",      rating: 4.7, available: true  },
-{ id: 7,  name: "Dr. Karan Malhotra",specialty: "ENT Specialist",     hospital: "Manipal Hospital",   area: "Bangalore",      rating: 4.3, available: true  },
-{ id: 8,  name: "Dr. Anjali Desai",  specialty: "Psychiatrist",       hospital: "Kokilaben Hospital", area: "Mumbai",         rating: 4.6, available: false },
-{ id: 9,  name: "Dr. Rohit Jain",    specialty: "Oncologist",         hospital: "Tata Memorial",      area: "Mumbai",         rating: 4.9, available: true  },
-{ id: 10, name: "Dr. Pooja Arora",   specialty: "Ophthalmologist",    hospital: "Eye Care Clinic",    area: "Chandigarh",     rating: 4.2, available: true  },
-{ id: 11, name: "Dr. Suresh Iyer",   specialty: "General Physician",  hospital: "Care Hospital",      area: "Chennai",        rating: 4.5, available: false },
-{ id: 12, name: "Dr. Meena Nair",    specialty: "Endocrinologist",    hospital: "Lilavati Hospital",  area: "Mumbai",         rating: 4.7, available: true  },
+  // { id, name, specialty, hospital, area, rating, available, city, address, lat, lng }
+  { id: 1,  name: "Dr. Amit Sharma",    specialty: "Cardiologist",      hospital: "Apollo Hospital",    area: "Delhi",      city: "Delhi",      address: "Apollo Hospital, Delhi",         lat: 28.5672, lng: 77.2100, rating: 4.7, available: true  },
+  { id: 2,  name: "Dr. Neha Verma",     specialty: "Dermatologist",     hospital: "Fortis Hospital",    area: "Gurgaon",    city: "Gurugram",   address: "Fortis Hospital, Gurgaon",       lat: 28.4595, lng: 77.0266, rating: 4.5, available: false },
+  { id: 3,  name: "Dr. Rajesh Gupta",   specialty: "Orthopedic",        hospital: "Max Healthcare",     area: "Noida",      city: "Noida",      address: "Max Healthcare, Noida",          lat: 28.5355, lng: 77.3910, rating: 4.6, available: true  },
+  { id: 4,  name: "Dr. Sneha Kapoor",   specialty: "Pediatrician",      hospital: "AIIMS",              area: "New Delhi",  city: "Delhi",      address: "AIIMS, New Delhi",               lat: 28.5672, lng: 77.2100, rating: 4.8, available: true  },
+  { id: 5,  name: "Dr. Vikram Singh",   specialty: "Neurologist",       hospital: "Medanta",            area: "Gurgaon",    city: "Gurugram",   address: "Medanta, Gurgaon",               lat: 28.4595, lng: 77.0266, rating: 4.4, available: false },
+  { id: 6,  name: "Dr. Priya Mehta",    specialty: "Gynecologist",      hospital: "Columbia Asia",      area: "Bangalore",  city: "Bengaluru",  address: "Columbia Asia, Bangalore",       lat: 12.9716, lng: 77.5946, rating: 4.7, available: true  },
+  { id: 7,  name: "Dr. Karan Malhotra", specialty: "ENT Specialist",    hospital: "Manipal Hospital",   area: "Bangalore",  city: "Bengaluru",  address: "Manipal Hospital, Bangalore",    lat: 12.9716, lng: 77.5946, rating: 4.3, available: true  },
+  { id: 8,  name: "Dr. Anjali Desai",   specialty: "Psychiatrist",      hospital: "Kokilaben Hospital", area: "Mumbai",     city: "Mumbai",     address: "Kokilaben Hospital, Mumbai",     lat: 19.0760, lng: 72.8777, rating: 4.6, available: false },
+  { id: 9,  name: "Dr. Rohit Jain",     specialty: "Oncologist",        hospital: "Tata Memorial",      area: "Mumbai",     city: "Mumbai",     address: "Tata Memorial, Mumbai",          lat: 19.0760, lng: 72.8777, rating: 4.9, available: true  },
+  { id: 10, name: "Dr. Pooja Arora",    specialty: "Ophthalmologist",   hospital: "Eye Care Clinic",    area: "Chandigarh", city: "Chandigarh", address: "Eye Care Clinic, Chandigarh",     lat: 30.7333, lng: 76.7794, rating: 4.2, available: true  },
+  { id: 11, name: "Dr. Suresh Iyer",    specialty: "General Physician", hospital: "Care Hospital",      area: "Chennai",    city: "Chennai",    address: "Care Hospital, Chennai",         lat: 13.0827, lng: 80.2707, rating: 4.5, available: false },
+  { id: 12, name: "Dr. Meena Nair",     specialty: "Endocrinologist",   hospital: "Lilavati Hospital",  area: "Mumbai",     city: "Mumbai",     address: "Lilavati Hospital, Mumbai",      lat: 19.0760, lng: 72.8777, rating: 4.7, available: true  },
 ];
