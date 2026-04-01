@@ -3,31 +3,21 @@ import { getDoctors, addDoctor } from '../../services/doctorService';
 import { filterDoctors } from '../../utils/filterDoctors';
 
 export const useDoctors = () => {
-  const [allDoctors, setAllDoctors] = useState(() => getDoctors());
-  const [filter, setFilter] = useState('');
-  const [doctors, setDoctors] = useState(() => getDoctors());
+  const [allDoctors, setAllDoctors] = useState([]);
+  const [selectedArea,setSelectedArea]=useState("");
+  const [selectedSpecialty,setSelectedSpecialty]=useState("");
 
   useEffect(() => {
-    let mounted = true;
+    setAllDoctors(getDoctors());
+  }, []);
 
-    const refresh = async () => {
-      const filtered = await filterDoctors(allDoctors, { specialty: filter });
-      if (mounted) setDoctors(filtered);
-    };
-
-    refresh();
-
-    return () => {
-      mounted = false;
-    };
-  }, [allDoctors, filter]);
-
+  // Add doctor with optional geocoding (address/city/area). Returns the saved doctor.
   const handleAddDoctor = async (doctorInput) => {
     const saved = await addDoctor(doctorInput);
-    const latestDoctors = getDoctors();
-    setAllDoctors(latestDoctors);
+    setAllDoctors(getDoctors());
     return saved;
   };
 
-  return { doctors, setFilter, handleAddDoctor };
+  const doctors = filterDoctors(allDoctors, selectedArea,selectedSpecialty);
+  return { doctors, handleAddDoctor,selectedArea,selectedSpecialty,setSelectedArea,setSelectedSpecialty };
 };
