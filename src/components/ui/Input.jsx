@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Input = (
+const Input =({
   value,
   onChange,
   placeholder,
   disabled = false,
   type = 'text'
-) => {
+}) => {
   return (
     <input 
     type={type}

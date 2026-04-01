@@ -18,6 +18,6 @@ export const useDoctors = () => {
     return saved;
   };
 
-  const doctors = filterDoctors(allDoctors, selectedArea,selectedspecialty);
+  const doctors = filterDoctors(allDoctors, selectedArea,selectedSpecialty);
   return { doctors, handleAddDoctor,selectedArea,selectedSpecialty,setSelectedArea,setSelectedSpecialty };
 };

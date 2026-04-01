@@ -1,4 +1,3 @@
-// Changes based on role
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useApp } from '../providers/AppProvider';
@@ -7,11 +6,13 @@ import { ROUTES } from '../../constants/routes';
 
 const navItems = {
   [ROLES.ELDER]: [
+    { label: 'Home', path: ROUTES.HOME },
     { label: 'Reminders', path: ROUTES.REMINDERS },
     { label: 'Doctors', path: ROUTES.DOCTORS },
     { label: 'Tips', path: ROUTES.HEALTH_TIPS },
   ],
   [ROLES.FAMILY]: [
+    { label: 'Home', path: ROUTES.HOME },
     { label: 'Reminders', path: ROUTES.REMINDERS },
     { label: 'Hospitals', path: ROUTES.HOSPITALS },
     { label: 'Tips', path: ROUTES.HEALTH_TIPS },
@@ -29,7 +30,10 @@ const BottomNav = () => {
       {items.map((item) => (
         <button
           key={item.path}
-          className={`bottom-nav__item ${location.pathname === item.path ? 'active' : ''}`}
+          aria-label={item.label}
+          className={`bottom-nav__item ${
+            location.pathname.startsWith(item.path) ? 'active' : ''
+          }`}
           onClick={() => navigate(item.path)}
         >
           {item.label}
