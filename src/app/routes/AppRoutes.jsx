@@ -2,7 +2,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes';
-import { useApp } from '../providers/AppProvider';
 import MainLayout from '../layout/MainLayout';
 import ReminderPage from '../../features/reminders/ReminderPage';
 import DoctorPage from '../../features/doctors/DoctorPage';

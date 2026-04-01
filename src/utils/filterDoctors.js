@@ -13,11 +13,14 @@ export const filterDoctors = async (doctors, { specialty = "", area = "" } = {})
 
   if (area) {
     const loc = await geocodePlace(area);
+
     if (loc) {
-      // Sort by distance from target area, closest first.
       filtered = filtered
         .filter((d) => typeof d.lat === "number" && typeof d.lng === "number")
         .sort((doc1, doc2) => getDistance(doc1.lat, doc1.lng, loc.lat, loc.lng) - getDistance(doc2.lat, doc2.lng, loc.lat, loc.lng));
+    } else {
+      // If geocoding fails, fallback to area name match
+      filtered = filtered.filter((d) => isEqual(area, d.area));
     }
   }
 

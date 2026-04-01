@@ -8,14 +8,20 @@ export const useDoctors = () => {
   const [doctors, setDoctors] = useState(() => getDoctors());
 
   useEffect(() => {
+    let mounted = true;
+
     const refresh = async () => {
       const filtered = await filterDoctors(allDoctors, { specialty: filter });
-      setDoctors(filtered);
+      if (mounted) setDoctors(filtered);
     };
+
     refresh();
+
+    return () => {
+      mounted = false;
+    };
   }, [allDoctors, filter]);
 
-  // Add doctor with optional geocoding (address/city/area). Returns the saved doctor.
   const handleAddDoctor = async (doctorInput) => {
     const saved = await addDoctor(doctorInput);
     const latestDoctors = getDoctors();
