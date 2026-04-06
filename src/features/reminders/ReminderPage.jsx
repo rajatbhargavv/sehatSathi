@@ -1,5 +1,5 @@
 import React from 'react';
-import { useApp } from '../../app/providers/AppProvider';
+import { useApp } from '../../app/providers/useApp';
 import { ROLES } from '../../constants/config';
 import ReminderForm from './ReminderForm';
 import ReminderList from './ReminderList';

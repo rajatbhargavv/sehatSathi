@@ -15,7 +15,8 @@ const handleChange=(e)=>{
     {...formData,[e.target.name]:e.target.value}
   )
 }
-const handleSubmit=()=>{
+const handleSubmit=(e)=>{
+  e.preventDefault();
   let check=validateReminder(formData);
   if(!check.isValid){
     setErrors(check.errors);
@@ -30,14 +31,14 @@ const handleSubmit=()=>{
   setErrors({});
 }
 return(
-  <div className="mb-4 space-y-3">
+  <form className="mb-4 space-y-3" onSubmit={handleSubmit}>
     <Input name="medicineName" placeholder="Medicine name" onChange={handleChange} value={formData.medicineName}></Input>
     {errors.medicineName && <p>{errors.medicineName}</p>}
-     <Input name="time" placeholder="Time" onChange={handleChange} value={formData.time}></Input>
+     <Input name="time" type="time" placeholder="Time" onChange={handleChange} value={formData.time}></Input>
     {errors.time && <p>{errors.time}</p>}
      <Input name="dosage" placeholder="Dosage" onChange={handleChange} value={formData.dosage}></Input>
     {errors.dosage && <p>{errors.dosage}</p>}
-    <Button onClick={handleSubmit} fullWidth>Add Reminder</Button>
-  </div>
+    <Button type="submit" fullWidth>Add Reminder</Button>
+  </form>
 )
 }
