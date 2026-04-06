@@ -1,29 +1,27 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useApp } from '../providers/AppProvider';
+import { useApp } from '../providers/useApp';
 import { ROLES } from '../../constants/config';
 import { ROUTES } from '../../constants/routes';
 
-const navItems = {
-  [ROLES.ELDER]: [
-    { label: 'Home', path: ROUTES.HOME },
-    { label: 'Reminders', path: ROUTES.REMINDERS },
-    { label: 'Doctors', path: ROUTES.DOCTORS },
-    { label: 'Tips', path: ROUTES.HEALTH_TIPS },
-  ],
-  [ROLES.FAMILY]: [
-    { label: 'Home', path: ROUTES.HOME },
-    { label: 'Reminders', path: ROUTES.REMINDERS },
-    { label: 'Hospitals', path: ROUTES.HOSPITALS },
-    { label: 'Tips', path: ROUTES.HEALTH_TIPS },
-  ],
+const allNavItems = [
+  { label: 'Reminders', path: ROUTES.REMINDERS },
+  { label: 'Doctors', path: ROUTES.DOCTORS },
+  { label: 'Hospitals', path: ROUTES.HOSPITALS },
+  { label: 'Tips', path: ROUTES.HEALTH_TIPS },
+];
+
+const roleNavItems = {
+  [ROLES.ELDER]: ['Reminders', 'Doctors', 'Tips'],
+  [ROLES.FAMILY]: ['Reminders', 'Hospitals', 'Tips'],
 };
 
 const BottomNav = () => {
   const { role } = useApp();
   const navigate = useNavigate();
   const location = useLocation();
-  const items = navItems[role] ?? navItems[ROLES.ELDER];
+  const allowedLabels = roleNavItems[role] ?? roleNavItems[ROLES.ELDER];
+  const items = allNavItems.filter((item) => allowedLabels.includes(item.label));
 
   return (
     <nav className="bottom-nav">

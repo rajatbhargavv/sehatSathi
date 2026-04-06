@@ -5,10 +5,13 @@ const Button = ({
   onClick,
   disabled = false,
   variant = 'primary',
-  fullWidth = false
+  fullWidth = false,
+  type = 'button',
+  ...rest
  }) => {
   return(
     <button 
+    type={type}
     onClick={onClick}
     disabled={disabled}
     style={{
@@ -20,7 +23,8 @@ const Button = ({
         width: fullWidth ? '100%' : 'auto',
         opacity: disabled ? 0.6 : 1,
         cursor: disabled ? 'not-allowed' : 'pointer',
-      }}>
+      }}
+    {...rest}>
         {children}
     </button>
 

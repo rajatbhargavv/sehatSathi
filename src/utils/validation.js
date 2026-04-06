@@ -134,3 +134,8 @@ export const isValidEmail = (email) => {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return regex.test(email.trim());
 };
+
+export const getDistance=(lat1,lng1,lat2,lng2)=>{
+  const distance=Math.sqrt(Math.pow(lat2-lat1,2)+Math.pow(lng2-lng1,2));
+  return distance;
+}

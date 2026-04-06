@@ -1,25 +1,24 @@
 // Global state provider
-import React, { createContext, useContext, useState } from 'react';
-import { DEFAULT_ROLE } from '../../constants/config';
-
-const AppContext = createContext(null);
+import React, { useState, useContext } from "react";
+import { AppContext } from "./AppContext";
 
 export const AppProvider = ({ children }) => {
-  const [role, setRole] = useState(DEFAULT_ROLE);
-
-  const value = { role, setRole };
+  const [role, setRole] = useState("elder");
 
   return (
-    <AppContext.Provider value={value}>
+    <AppContext.Provider value={{ role, setRole }}>
       {children}
     </AppContext.Provider>
   );
 };
 
+// Custom hook to access context easily
 export const useApp = () => {
   const context = useContext(AppContext);
+
   if (!context) {
-    throw new Error("useApp must be used within AppProvider");
+    throw new Error("useApp must be used within an AppProvider");
   }
+
   return context;
 };

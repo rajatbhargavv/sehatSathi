@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { getTodayTip } from '../../utils/getTodayTip';
 
 export const useHealthTips = () => {
-  const [todayTip, setTodayTip] = useState(null);
-  useEffect(() => { setTodayTip(getTodayTip()); }, []);
+  const [todayTip] = useState(() => getTodayTip());
   return { todayTip };
 };

@@ -1,9 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import AppRoutes from "./app/routes/AppRoutes";
+import { AppProvider } from "./app/providers/AppProvider";
+import "./index.css";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
+    <AppProvider>
+      <AppRoutes />
+    </AppProvider>
   </React.StrictMode>
 );

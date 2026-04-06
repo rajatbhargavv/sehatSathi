@@ -1,6 +1,6 @@
 // TEMP – for testing elder/family
 import React from 'react';
-import { useApp } from '../providers/AppProvider';
+import { useApp } from '../providers/useApp';
 import { ROLES } from '../../constants/config';
 
 const RoleSwitcher = () => {
