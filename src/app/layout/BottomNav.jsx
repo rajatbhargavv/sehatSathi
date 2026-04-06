@@ -1,4 +1,3 @@
-// Changes based on role
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useApp } from '../providers/useApp';
@@ -29,7 +28,10 @@ const BottomNav = () => {
       {items.map((item) => (
         <button
           key={item.path}
-          className={`bottom-nav__item ${location.pathname === item.path ? 'active' : ''}`}
+          aria-label={item.label}
+          className={`bottom-nav__item ${
+            location.pathname.startsWith(item.path) ? 'active' : ''
+          }`}
           onClick={() => navigate(item.path)}
         >
           {item.label}

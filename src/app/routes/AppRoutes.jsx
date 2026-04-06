@@ -1,25 +1,30 @@
-// Role-based routing logic
-import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { ROUTES } from '../../constants/routes';
-import MainLayout from '../layout/MainLayout';
-import ReminderPage from '../../features/reminders/ReminderPage';
-import DoctorPage from '../../features/doctors/DoctorPage';
-import HospitalPage from '../../features/hospitals/HospitalPage';
-import HealthTipPage from '../../features/healthTips/HealthTipPage';
+import React from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+import MainLayout from "../layout/MainLayout";
+import HomePage from "../../features/home/HomePage";
+import ReminderPage from "../../features/reminders/ReminderPage";
+import DoctorPage from "../../features/doctors/DoctorPage";
+import HospitalPage from "../../features/hospitals/HospitalPage";
+import HealthTipPage from "../../features/healthTips/HealthTipPage";
 
 const AppRoutes = () => {
   return (
     <BrowserRouter>
-        <Routes>
-          <Route element={<MainLayout/>}>
-          <Route path={ROUTES.HOME} element={<Navigate to={ROUTES.REMINDERS} replace />} />
-          <Route path={ROUTES.REMINDERS} element={<ReminderPage />} />
-          <Route path={ROUTES.DOCTORS} element={<DoctorPage />} />
-          <Route path={ROUTES.HOSPITALS} element={<HospitalPage />} />
-          <Route path={ROUTES.HEALTH_TIPS} element={<HealthTipPage />} />
-          </Route>
-        </Routes>
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          
+          {/* default route */}
+          <Route index element={<Navigate to="home" />} />
+
+          <Route path="home" element={<HomePage />} />
+          <Route path="reminders" element={<ReminderPage />} />
+          <Route path="doctors" element={<DoctorPage />} />
+          <Route path="hospitals" element={<HospitalPage />} />
+          <Route path="health-tips" element={<HealthTipPage />} />
+
+        </Route>
+      </Routes>
     </BrowserRouter>
   );
 };
