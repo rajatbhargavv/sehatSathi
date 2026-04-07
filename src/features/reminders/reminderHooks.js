@@ -1,5 +1,10 @@
 import { useState } from 'react';
-import { getReminders, addReminder, deleteReminder } from '../../services/reminderService';
+import {
+  getReminders,
+  addReminder,
+  deleteReminder,
+  toggleReminderStatus,
+} from '../../services/reminderService';
 
 export const useReminders = () => {
   const [reminders, setReminders] = useState(() => getReminders());
@@ -16,5 +21,16 @@ export const useReminders = () => {
     setReminders(updatedReminders);
   };
 
-  return { reminders, handleAddReminder, handleDeleteReminder };
+  const handleToggleReminderStatus = (id) => {
+    toggleReminderStatus(id);
+    const updatedReminders = getReminders();
+    setReminders(updatedReminders);
+  };
+
+  return {
+    reminders,
+    handleAddReminder,
+    handleDeleteReminder,
+    handleToggleReminderStatus,
+  };
 };

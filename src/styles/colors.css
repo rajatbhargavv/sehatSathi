@@ -1,0 +1,26 @@
+:root {
+  --green-50: #d8f3dc;
+  --green-300: #74c69d;
+  --green-400: #52b788;
+  --primary: #2d6a4f;
+  --primary-dk: #1b4332;
+
+  --family: #3a86ff;
+  --family-lt: #dbe9ff;
+  --family-dk: #1b3a6b;
+
+  --accent: #f4845f;
+  --accent-lt: #fde8df;
+
+  --warn: #f4a261;
+  --warn-lt: #fff0e0;
+
+  --danger: #c0392b;
+  --danger-lt: #ffe8eb;
+
+  --bg: #f4f7f5;
+  --border: #e4ece7;
+  --text: #1a2e22;
+  --muted: #6b7a70;
+  --muted2: #a8b5ae;
+}

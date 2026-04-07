@@ -1,9 +1,43 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 
 const MainLayout = () => {
+  const location = useLocation();
+
+  const headerByPath = {
+    "/home": {
+      showGreeting: true,
+      subtitle: "Stay on top of your health today",
+      showSearch: true,
+      searchPlaceholder: "Search anything...",
+    },
+    "/reminders": {
+      title: "Reminders & Medications",
+      showSearch: true,
+      searchPlaceholder: "Search reminders...",
+    },
+    "/doctors": {
+      title: "Find Doctors Nearby",
+      showSearch: false,
+    },
+    "/hospitals": {
+      title: "Nearby Hospitals",
+      showSearch: false,
+    },
+    "/health-tips": {
+      title: "Daily Health Tips",
+      showSearch: false,
+    },
+  };
+
+  const headerProps = headerByPath[location.pathname] ?? {
+    title: "SehatSathi",
+    showSearch: false,
+  };
+
   return (
     <div className="flex h-screen bg-[var(--bg)] text-[var(--text)]">
       
@@ -15,7 +49,7 @@ const MainLayout = () => {
         
         {/* HEADER */}
         <div className="sticky top-0 z-10 bg-white border-b border-[var(--border)]">
-          <Header />
+          <Header {...headerProps} />
         </div>
 
         {/* CONTENT */}

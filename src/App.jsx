@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppProvider } from './app/providers/AppProvider';
 import AppRoutes from './app/routes/AppRoutes';
-import './styles/index.css';
+import './App.css';
 import { migrateLegacyKeys } from './utils/storage';
 
 // Migrate old carebridge_* localStorage keys to current sehatsathi_* keys if present

@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import RoleSwitcher from "./RoleSwitcher";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -33,8 +32,8 @@ const Sidebar = () => {
                 to={item.path}
                 className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition 
                   ${isActive 
-                    ? "bg-green-100 text-green-700 font-medium" 
-                    : "hover:bg-gray-100"
+                    ? "bg-[var(--green-50)] text-[var(--primary)] font-medium" 
+                    : "text-[var(--muted)] hover:bg-[var(--bg)]"
                   }`}
               >
                 <span>{item.icon}</span>
@@ -43,11 +42,6 @@ const Sidebar = () => {
             );
           })}
         </nav>
-      </div>
-
-      {/* Bottom */}
-      <div>
-        <RoleSwitcher />
       </div>
     </aside>
   );

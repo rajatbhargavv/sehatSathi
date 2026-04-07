@@ -1,4 +1,3 @@
-// TEMP – for testing elder/family
 import React from 'react';
 import { useApp } from '../providers/useApp';
 import { ROLES } from '../../constants/config';
@@ -7,15 +6,20 @@ const RoleSwitcher = () => {
   const { role, setRole } = useApp();
 
   return (
-    <div className="flex items-center gap-2 p-2">
-      <span>View as:</span>
+    <div className="inline-flex items-center rounded-xl border border-[var(--border)] bg-[var(--bg)] p-1">
 
       {Object.values(ROLES).map((r) => (
         <button
           key={r}
           aria-label={`Switch to ${r} view`}
-          className={`px-3 py-1 rounded ${
-            role === r ? 'bg-blue-600 text-white' : 'bg-gray-200'
+          className={`rounded-lg px-4 py-1 text-sm font-semibold transition-colors ${
+            role === r
+              ? r === ROLES.ELDER
+                ? 'bg-[var(--primary)] text-white'
+                : 'bg-[var(--family)] text-white'
+              : r === ROLES.ELDER
+                ? 'text-[var(--muted)] hover:bg-[var(--green-50)]'
+                : 'text-[var(--muted)] hover:bg-[var(--family-lt)]'
           }`}
           onClick={() => setRole(r)}
         >

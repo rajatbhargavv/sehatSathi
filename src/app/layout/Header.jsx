@@ -1,15 +1,20 @@
 import React from "react";
-import { useApp } from "../providers/AppProvider";
+import { useApp } from "../providers/useApp";
+import RoleSwitcher from "./RoleSwitcher";
 
-const Header = () => {
+const Header = ({
+  title,
+  subtitle,
+  showGreeting = false,
+  showSearch = true,
+  searchPlaceholder = "Search anything...",
+}) => {
   const { role } = useApp();
 
-  // Mock user (later you can move this to context)
   const user = {
     name: role === "elder" ? "Arjun Kumar" : "Rahul Kumar",
   };
 
-  // Dynamic greeting
   const getGreeting = () => {
     const hour = new Date().getHours();
     if (hour < 12) return "Good Morning";
@@ -17,49 +22,30 @@ const Header = () => {
     return "Good Evening";
   };
 
+  const resolvedTitle = showGreeting
+    ? `${getGreeting()}, ${user.name} 👋`
+    : title;
+
   return (
-    <header className="flex items-center justify-between px-6 py-4 bg-white">
-      
-      {/* LEFT SECTION */}
+    <header className="flex items-center justify-between gap-4 px-4 py-3 sm:px-6 bg-white">
       <div>
-        <h2 className="text-lg font-semibold">
-          {getGreeting()}, {user.name} 👋
-        </h2>
-        <p className="text-sm text-gray-500">
-          Stay on top of your health today
-        </p>
+        <h2 className="text-lg font-semibold text-[var(--text)]">{resolvedTitle}</h2>
+        {subtitle ? <p className="text-sm text-[var(--muted)]">{subtitle}</p> : null}
       </div>
 
-      {/* RIGHT SECTION */}
-      <div className="flex items-center gap-4">
-        
-        {/* Search */}
-        <input
-          type="text"
-          placeholder="🔍 Search anything..."
-          className="px-3 py-2 border rounded-lg text-sm w-[220px] focus:outline-none focus:ring-2 focus:ring-green-400"
-        />
+      <div className="flex items-center gap-2 sm:gap-3">
+        {showSearch ? (
+          <div className="hidden md:flex items-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--bg)] px-3 py-2 text-sm">
+            <span className="text-[var(--muted)]">Search</span>
+            <input
+              type="text"
+              placeholder={searchPlaceholder}
+              className="w-[200px] bg-transparent text-[var(--text)] placeholder:text-[var(--muted2)] focus:outline-none"
+            />
+          </div>
+        ) : null}
 
-        {/* Notification Bell */}
-        <button className="text-xl">
-          🔔
-        </button>
-
-        {/* Role Badge */}
-        <span
-          className={`text-xs px-3 py-1 rounded-full ${
-            role === "elder"
-              ? "bg-green-100 text-green-700"
-              : "bg-blue-100 text-blue-700"
-          }`}
-        >
-          {role === "elder" ? "Elder" : "Family"}
-        </span>
-
-        {/* Avatar */}
-        <div className="w-9 h-9 rounded-full bg-gray-300 flex items-center justify-center text-sm font-semibold">
-          {user.name.charAt(0)}
-        </div>
+        <RoleSwitcher />
       </div>
     </header>
   );

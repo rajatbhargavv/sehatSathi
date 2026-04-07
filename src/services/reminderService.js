@@ -29,7 +29,8 @@ export const setReminders = (reminders) => {
 
 // Function to add a new reminder and save to localStorage - Rajat (synchronous)
 export const addReminder = (reminder) => {
-  const newReminder = { ...reminder, id: Date.now() };
+  const normalizedStatus = reminder?.status === 'done' ? 'done' : 'pending';
+  const newReminder = { ...reminder, id: Date.now(), status: normalizedStatus };
   const reminders = getReminders();
   const updatedReminders = [...reminders, newReminder];
   setReminders(updatedReminders);
@@ -42,4 +43,17 @@ export const deleteReminder = (id) => {
   const filteredReminders = reminders.filter(r => r.id !== id);
   setReminders(filteredReminders);
   return id;
+};
+
+// Toggle reminder completion state between pending and done.
+export const toggleReminderStatus = (id) => {
+  const reminders = getReminders();
+  const updatedReminders = reminders.map((item) => {
+    if (item.id !== id) return item;
+    const nextStatus = item?.status === 'done' ? 'pending' : 'done';
+    return { ...item, status: nextStatus };
+  });
+
+  setReminders(updatedReminders);
+  return updatedReminders.find((item) => item.id === id) ?? null;
 };
