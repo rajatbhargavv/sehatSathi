@@ -30,14 +30,15 @@ const handleSubmit=(e)=>{
     });
   setErrors({});
 }
+// Changed Error style to appear like alert - rishabh
 return(
   <form className="mb-4 space-y-3" onSubmit={handleSubmit}>
     <Input name="medicineName" placeholder="Medicine name" onChange={handleChange} value={formData.medicineName}></Input>
-    {errors.medicineName && <p>{errors.medicineName}</p>}
+    {errors.medicineName && <p className="text-xs text-[var(--danger)]">{errors.medicineName}</p>}
      <Input name="time" type="time" placeholder="Time" onChange={handleChange} value={formData.time}></Input>
-    {errors.time && <p>{errors.time}</p>}
+    {errors.time && <p className="text-xs text-[var(--danger)]">{errors.time}</p>}
      <Input name="dosage" placeholder="Dosage" onChange={handleChange} value={formData.dosage}></Input>
-    {errors.dosage && <p>{errors.dosage}</p>}
+    {errors.dosage && <p className="text-xs text-[var(--danger)]">{errors.dosage}</p>}
     <Button type="submit" fullWidth>Add Reminder</Button>
   </form>
 )

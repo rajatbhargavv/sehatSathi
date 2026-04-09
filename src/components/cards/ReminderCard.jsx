@@ -1,8 +1,8 @@
-import React from 'react';
-import Card from '../ui/Card';
-import { formatTime } from '../../utils/formatTime';
-// Updated to render reminder data and handle deletion - Rajat
-// Added onDelete callback to persist changes to localStorage
+import React from "react";
+import Card from "../ui/Card";
+import Button from "../ui/Button";
+import { formatTime } from "../../utils/formatTime";
+
 const ReminderCard = ({
   data,
   readOnly = false,
@@ -10,6 +10,12 @@ const ReminderCard = ({
   handleToggleReminderStatus,
   preview = false,
 }) => {
+  if (!data) return null;
+
+  const isDone = data.status === "done";
+  const timeLabel = formatTime(data.time) || data.time || "--";
+  const frequency = data.dosage || "Daily";
+
   const handleDelete = () => {
     if (handleDeleteReminder && data?.id) {
       handleDeleteReminder(data.id);
@@ -22,41 +28,44 @@ const ReminderCard = ({
     }
   };
 
-  const isDone = data?.status === 'done';
-  const timeLabel = formatTime(data?.time) || data?.time || '--';
-  const frequency = data?.dosage || 'Daily';
-
+  // ✅ PREVIEW (Dashboard Table Row)
   if (preview) {
     return (
       <div className="grid grid-cols-[90px_1fr_90px_56px] gap-2 items-center px-4 py-3 border-b border-[var(--border)] last:border-b-0 bg-white">
-        <div>
-          <span className="inline-flex items-center rounded-full bg-[var(--green-50)] px-3 py-1 text-xs font-bold text-[var(--primary)]">
-            {timeLabel}
-          </span>
-        </div>
+        
+        {/* Time */}
+        <span className="inline-flex items-center rounded-full bg-[var(--green-50)] px-3 py-1 text-xs font-semibold text-[var(--primary)]">
+          {timeLabel}
+        </span>
 
+        {/* Info */}
         <div className="min-w-0">
-          <p className="font-bold text-[var(--text)] leading-tight truncate">{data?.medicineName || 'Medicine'}</p>
-          <p className="text-sm text-[var(--muted)] leading-tight truncate">{data?.dosage || 'Reminder'}</p>
+          <p className="font-semibold text-[var(--text)] truncate">
+            {data.medicineName}
+          </p>
+          <p className="text-sm text-[var(--muted)] truncate">
+            {data.dosage}
+          </p>
         </div>
 
-        <div>
-          <span className="inline-flex items-center rounded-md bg-[var(--bg)] px-2 py-1 text-xs font-bold text-[var(--muted)]">
-            {frequency}
-          </span>
-        </div>
+        {/* Frequency */}
+        <span className="inline-flex items-center rounded-md bg-[var(--bg)] px-2 py-1 text-xs font-medium text-[var(--muted)]">
+          {frequency}
+        </span>
 
+        {/* Toggle */}
         <button
-          type="button"
-          disabled={readOnly}
           onClick={handleToggle}
-          className={`h-7 w-7 rounded-full border-2 grid place-items-center transition-colors ${
-            isDone
-              ? 'bg-[var(--primary)] border-[var(--primary)] text-white'
-              : 'bg-white border-[var(--muted2)] text-transparent'
-          } ${readOnly ? 'cursor-not-allowed opacity-60' : ''}`}
-          aria-label={isDone ? 'Mark reminder as pending' : 'Mark reminder as complete'}
-          title={isDone ? 'Mark as pending' : 'Mark as complete'}
+          disabled={readOnly}
+          className={`
+            h-7 w-7 rounded-full border-2 grid place-items-center transition
+            ${
+              isDone
+                ? "bg-[var(--primary)] border-[var(--primary)] text-white"
+                : "bg-white border-[var(--muted2)] text-transparent"
+            }
+            ${readOnly ? "opacity-60 cursor-not-allowed" : ""}
+          `}
         >
           ✓
         </button>
@@ -64,32 +73,63 @@ const ReminderCard = ({
     );
   }
 
+  // ✅ FULL CARD (List view)
   return (
-    <Card className="remindercard">
-      <div className="reminder-card-content">
-        <h3>{data?.medicineName}</h3>
-        <p className="reminder-time">{data?.time}</p>
-        <p className="reminder-status">Status: {isDone ? 'Done' : 'Pending'}</p>
+    <Card
+      variant="default"
+      className="flex items-center justify-between gap-4 p-4"
+    >
+      {/* LEFT */}
+      <div className="flex-1">
+        
+        {/* Time */}
+        <p className="text-sm font-semibold text-[var(--primary)]">
+          {timeLabel}
+        </p>
+
+        {/* Medicine */}
+        <h3 className="font-semibold text-[var(--text)]">
+          {data.medicineName}
+        </h3>
+
+        {/* Details */}
+        <p className="text-xs text-[var(--muted)]">
+          {data.dosage} · {frequency}
+        </p>
+
+        {/* Status */}
+        <p
+          className={`text-xs mt-1 font-medium ${
+            isDone
+              ? "text-[var(--primary)]"
+              : "text-[var(--warn)]"
+          }`}
+        >
+          {isDone ? "Done" : "Pending"}
+        </p>
+      </div>
+
+      {/* RIGHT */}
+      <div className="text-right flex flex-col gap-2">
+        
         {!readOnly && (
-          <button
-            type="button"
+          <Button
+            variant="secondary"
             onClick={handleToggle}
-            className="rounded-md border border-[var(--border)] px-3 py-1 text-sm font-semibold text-[var(--primary)]"
-            aria-label={isDone ? 'Mark reminder as pending' : 'Mark reminder as complete'}
+            className="text-xs px-3 py-1.5"
           >
-            {isDone ? 'Mark Pending' : 'Mark Complete'}
-          </button>
+            {isDone ? "Mark Pending" : "Mark Done"}
+          </Button>
         )}
-        {/* Show delete button only when not in read-only mode - Rajat */}
-         <p className="reminder-dosage">{data?.dosage}</p>
+
         {!readOnly && (
-          <button 
-            onClick={handleDelete} 
-            className="reminder-delete-btn"
-            aria-label="Delete reminder"
+          <Button
+            variant="danger"
+            onClick={handleDelete}
+            className="text-xs px-3 py-1.5"
           >
             Delete
-          </button>
+          </Button>
         )}
       </div>
     </Card>

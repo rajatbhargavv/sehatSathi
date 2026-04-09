@@ -1,33 +1,48 @@
-import React from 'react';
+import React from "react";
 
-const Button = ({ 
+const Button = ({
   children,
   onClick,
   disabled = false,
-  variant = 'primary',
+  variant = "primary",
   fullWidth = false,
-  type = 'button',
+  type = "button",
+  className = "",
   ...rest
- }) => {
-  return(
-    <button 
-    type={type}
-    onClick={onClick}
-    disabled={disabled}
-    style={{
-        fontSize: '1.25rem',
-        padding: '1rem 2rem',
-        border: 'none',
-        backgroundColor: variant === 'primary' ? '#0053ba' : '#e0e0e0',
-        color: variant === 'primary' ? '#ffffff' : '#333333',
-        width: fullWidth ? '100%' : 'auto',
-        opacity: disabled ? 0.6 : 1,
-        cursor: disabled ? 'not-allowed' : 'pointer',
-      }}
-    {...rest}>
-        {children}
-    </button>
+}) => {
+  let variantStyles = "";
 
+  if (variant === "primary") {
+    variantStyles =
+      "bg-[var(--primary)] text-white hover:bg-[var(--primary-dk)]";
+  } else if (variant === "secondary") {
+    variantStyles =
+      "border border-[var(--primary)] text-[var(--primary)] hover:bg-[var(--green-50)]";
+  } else if (variant === "danger") {
+    variantStyles =
+      "bg-[var(--danger)] text-white hover:bg-red-700";
+  } else if (variant === "family") {
+    variantStyles =
+      "bg-[var(--family)] text-white hover:bg-[var(--family-dk)]";
+  }
+
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={`
+        rounded-xl font-medium transition-all duration-200
+        px-4 py-2 text-sm
+        ${variantStyles}
+        ${fullWidth ? "w-full" : ""}
+        ${disabled ? "opacity-60 cursor-not-allowed" : "cursor-pointer"}
+        ${className}
+      `}
+      {...rest}
+    >
+      {children}
+    </button>
   );
 };
 
