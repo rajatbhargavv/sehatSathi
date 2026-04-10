@@ -4,6 +4,7 @@ import {
   addReminder,
   deleteReminder,
   toggleReminderStatus,
+  updateReminder,
 } from '../../services/reminderService';
 
 export const useReminders = () => {
@@ -27,10 +28,17 @@ export const useReminders = () => {
     setReminders(updatedReminders);
   };
 
+  const handleUpdateReminder = (id, updates) => {
+    updateReminder(id, updates);
+    const updatedReminders = getReminders();
+    setReminders(updatedReminders);
+  };
+
   return {
     reminders,
     handleAddReminder,
     handleDeleteReminder,
     handleToggleReminderStatus,
+    handleUpdateReminder,
   };
 };

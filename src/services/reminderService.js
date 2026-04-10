@@ -30,7 +30,19 @@ export const setReminders = (reminders) => {
 // Function to add a new reminder and save to localStorage - Rajat (synchronous)
 export const addReminder = (reminder) => {
   const normalizedStatus = reminder?.status === 'done' ? 'done' : 'pending';
-  const newReminder = { ...reminder, id: Date.now(), status: normalizedStatus };
+  // ensure new fields have sensible defaults
+  const newReminder = {
+    id: Date.now(),
+    status: normalizedStatus,
+    medicineName: reminder.medicineName || "",
+    time: reminder.time || "",
+    dosage: reminder.dosage || "",
+    frequency: reminder.frequency || "Daily",
+    category: reminder.category || "Medicine",
+    alert: reminder.alert || "At time",
+    notes: reminder.notes || "",
+    ...reminder,
+  };
   const reminders = getReminders();
   const updatedReminders = [...reminders, newReminder];
   setReminders(updatedReminders);
@@ -52,6 +64,18 @@ export const toggleReminderStatus = (id) => {
     if (item.id !== id) return item;
     const nextStatus = item?.status === 'done' ? 'pending' : 'done';
     return { ...item, status: nextStatus };
+  });
+
+  setReminders(updatedReminders);
+  return updatedReminders.find((item) => item.id === id) ?? null;
+};
+
+// Update a reminder by id (e.g., editing name/time/frequency/notes)
+export const updateReminder = (id, updates = {}) => {
+  const reminders = getReminders();
+  const updatedReminders = reminders.map((item) => {
+    if (item.id !== id) return item;
+    return { ...item, ...updates, id: item.id };
   });
 
   setReminders(updatedReminders);

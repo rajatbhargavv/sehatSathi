@@ -6,15 +6,22 @@ import { formatTime } from "../../utils/formatTime";
 const ReminderCard = ({
   data,
   readOnly = false,
+  canToggle = true,
+  canDelete = false,
   handleDeleteReminder,
   handleToggleReminderStatus,
   preview = false,
 }) => {
   if (!data) return null;
 
+  const effectiveCanToggle = readOnly ? false : canToggle;
+  const effectiveCanDelete = readOnly ? false : canDelete;
+
   const isDone = data.status === "done";
   const timeLabel = formatTime(data.time) || data.time || "--";
-  const frequency = data.dosage || "Daily";
+  const frequency = data.frequency || data.dosage || "Daily";
+  const dosageLabel = data.dosage || "";
+  const categoryLabel = data.category || "";
 
   const handleDelete = () => {
     if (handleDeleteReminder && data?.id) {
@@ -44,7 +51,7 @@ const ReminderCard = ({
             {data.medicineName}
           </p>
           <p className="text-sm text-[var(--muted)] truncate">
-            {data.dosage}
+            {dosageLabel || categoryLabel}
           </p>
         </div>
 
@@ -56,7 +63,7 @@ const ReminderCard = ({
         {/* Toggle */}
         <button
           onClick={handleToggle}
-          disabled={readOnly}
+          disabled={!effectiveCanToggle}
           className={`
             h-7 w-7 rounded-full border-2 grid place-items-center transition
             ${
@@ -64,7 +71,7 @@ const ReminderCard = ({
                 ? "bg-[var(--primary)] border-[var(--primary)] text-white"
                 : "bg-white border-[var(--muted2)] text-transparent"
             }
-            ${readOnly ? "opacity-60 cursor-not-allowed" : ""}
+            ${!effectiveCanToggle ? "opacity-60 cursor-not-allowed" : ""}
           `}
         >
           ✓
@@ -94,8 +101,13 @@ const ReminderCard = ({
 
         {/* Details */}
         <p className="text-xs text-[var(--muted)]">
-          {data.dosage} · {frequency}
+          {dosageLabel && `${dosageLabel} · `}{frequency}
         </p>
+
+        {/* Notes */}
+        {data.notes && (
+          <p className="text-xs text-[var(--muted)] mt-1 truncate">{data.notes}</p>
+        )}
 
         {/* Status */}
         <p
@@ -112,7 +124,7 @@ const ReminderCard = ({
       {/* RIGHT */}
       <div className="text-right flex flex-col gap-2">
         
-        {!readOnly && (
+        {effectiveCanToggle && (
           <Button
             variant="secondary"
             onClick={handleToggle}
@@ -122,7 +134,7 @@ const ReminderCard = ({
           </Button>
         )}
 
-        {!readOnly && (
+        {effectiveCanDelete && (
           <Button
             variant="danger"
             onClick={handleDelete}

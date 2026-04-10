@@ -36,15 +36,17 @@ export const isValidDate = (date) => {
 
 export const validateReminder = (reminder) => {
   const errors = {
-    //default error messages empty hai
+    // default error messages
     medicineName: "",
     time: "",
     dosage: "",
+    frequency: "",
+    notes: "",
   };
   let isValid = true;
-  if (isEmpty(reminder.medicineName)){
-    //agar medicine name empty hai to error message set karega
-    errors.medicineName = "Medicine name is required";
+  if (isEmpty(reminder.medicineName) || (typeof reminder.medicineName === 'string' && reminder.medicineName.trim().length < 3)){
+    // name required and minimum length 3
+    errors.medicineName = "Name min 3 chars";
     isValid=false;
   }
   if (isEmpty(reminder.time)){
@@ -56,11 +58,19 @@ export const validateReminder = (reminder) => {
     errors.time = "Invalid time format. Must be HH:mm in 24 hour format";
     isValid=false;
   }
-  if (isEmpty(reminder.dosage)){
-    //agar dosage empty hai to error message set karega
-    errors.dosage = "Dosage is required";
-    isValid=false;
-}
+  // dosage is optional now; keep validation light
+
+  // frequency required
+  if (isEmpty(reminder.frequency)) {
+    errors.frequency = "Frequency is required";
+    isValid = false;
+  }
+
+  // notes length limit
+  if (reminder.notes && reminder.notes.toString().trim().length > 120) {
+    errors.notes = "Max 120 chars";
+    isValid = false;
+  }
   return {isValid, errors}; //error object return karega
 };
 
