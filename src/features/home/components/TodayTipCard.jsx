@@ -17,8 +17,7 @@ const TodayTipCard = ({ tip }) => {
 
 				<div className="min-w-0 flex-1">
 					<p className="text-xs font-bold tracking-[0.16em] text-[var(--accent)]">TIP OF THE DAY</p>
-					<p className="text-xl leading-tight font-bold text-[var(--text)]">Drink water before you feel thirsty</p>
-					<p className="text-sm text-[var(--muted)] truncate">{tip}</p>
+					<p className="text-xl leading-tight font-bold text-[var(--text)]">{tip || 'Drink water before you feel thirsty'}</p>
 				</div>
 
 				<Link

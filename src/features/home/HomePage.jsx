@@ -45,7 +45,8 @@ const HomePage = () => {
 
   const tipOfTheDay = useMemo(() => {
     const tip = getTodayTip();
-    return tip?.tip ?? "Drink water before you feel thirsty.";
+    console.log(tip.tip);
+    return tip.tip || "Drink water before you feel thirsty.";
   }, []);
 
   const statCards = [
