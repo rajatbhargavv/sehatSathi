@@ -7,12 +7,12 @@ const DoctorFilter = ({selectedSpecialty,setSelectedSpecialty,selectedArea,setSe
         placeholder="Filter by specialty"
         value={selectedSpecialty}
         onChange={(e) => { setSelectedSpecialty(e.target.value); }}
-        options={["Cardiologist", "Dentist", "General"]}/>
+        options={["All","Cardiologist", "Dentist", "General"]}/>
       <Select
         placeholder="Filter by area"
         value={selectedArea}
         onChange={(e) => { setSelectedArea(e.target.value);  }}
-        options={["Delhi", "Noida", "Gurgaon"]}
+        options={["All","Delhi", "Noida", "Gurgaon"]}
       />
     </div>
   );

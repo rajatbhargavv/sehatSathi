@@ -3,23 +3,29 @@ import { getDoctors, addDoctor } from '../../services/doctorService';
 import { isEqual, getDistance } from '../../utils/validation';
 import { geocodePlace } from '../../services/geocodeService';
 
+const isAllSelection = (value) =>
+  typeof value === 'string' && value.trim().toLowerCase() === 'all';
+
 export const useDoctors = () => {
   const [allDoctors, setAllDoctors] = useState(() => getDoctors());
   const [selectedArea, setSelectedArea] = useState('');
   const [selectedSpecialty, setSelectedSpecialty] = useState('');
   const [areaLocation, setAreaLocation] = useState(null);
 
+  const effectiveArea = isAllSelection(selectedArea) ? '' : selectedArea;
+  const effectiveSpecialty = isAllSelection(selectedSpecialty) ? '' : selectedSpecialty;
+
   useEffect(() => {
     let mounted = true;
 
     const resolveAreaLocation = async () => {
-      if (!selectedArea) {
+      if (!effectiveArea) {
         setAreaLocation(null);
         return;
       }
 
       setAreaLocation(null);
-      const loc = await geocodePlace(selectedArea);
+      const loc = await geocodePlace(effectiveArea);
       if (mounted) {
         setAreaLocation(loc ?? null);
       }
@@ -30,21 +36,22 @@ export const useDoctors = () => {
     return () => {
       mounted = false;
     };
-  }, [selectedArea]);
+  }, [effectiveArea]);
 
   const doctors = useMemo(() => {
     let filtered = [...allDoctors];
 
-    if (selectedSpecialty) {
-      filtered = filtered.filter((doctor) => isEqual(selectedSpecialty, doctor.specialty));
+    if (effectiveSpecialty) {
+      filtered = filtered.filter((doctor) => isEqual(effectiveSpecialty, doctor.specialty));
     }
 
-    if (!selectedArea) {
+    if (!effectiveArea) {
       return filtered;
     }
 
     if (areaLocation) {
       return filtered
+        .filter((doctor) => isEqual(effectiveArea, doctor.area))
         .filter((doctor) => typeof doctor.lat === 'number' && typeof doctor.lng === 'number')
         .sort(
           (a, b) =>
@@ -53,8 +60,8 @@ export const useDoctors = () => {
         );
     }
 
-    return filtered.filter((doctor) => isEqual(selectedArea, doctor.area));
-  }, [allDoctors, selectedSpecialty, selectedArea, areaLocation]);
+    return filtered.filter((doctor) => isEqual(effectiveArea, doctor.area));
+  }, [allDoctors, effectiveSpecialty, effectiveArea, areaLocation]);
 
   // Add doctor with optional geocoding (address/city/area). Returns the saved doctor.
   const handleAddDoctor = async (doctorInput) => {
