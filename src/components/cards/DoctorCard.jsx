@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "../ui/Card";
 import Button from "../ui/Button";
+import Chip from "../ui/Chip";
 
 const DoctorCard = ({ data }) => {
   if (!data) return null;
@@ -41,27 +42,23 @@ const DoctorCard = ({ data }) => {
           </p>
 
           <p className="text-xs text-[var(--muted2)] mt-1 truncate">
-            {data.hospital}
+            {data.hospital}, {data.city}
           </p>
         </div>
       </div>
 
       {/* RIGHT */}
       <div className="flex flex-col items-end gap-2">
-        
-        {/* Availability */}
-        <span
-          className={`
-            text-xs px-3 py-1 rounded-full font-medium
-            ${
-              data.available
-                ? "bg-[var(--green-50)] text-[var(--primary)]"
-                : "bg-[var(--danger-lt)] text-[var(--danger)]"
-            }
-          `}
-        >
-          {data.available ? "Available Now" : "Busy"}
-        </span>
+        <Chip
+          as="span"
+          customTone
+          label={data.available ? "Available Now" : "Busy"}
+          className={`min-w-[126px] justify-center text-xs px-3 py-1 font-semibold ${
+            data.available
+              ? "bg-white border-[var(--green-300)] text-[var(--primary)]"
+              : "bg-white border-[#f2c7c2] text-[var(--danger)]"
+          }`}
+        />
 
         {/* Button */}
         <Button

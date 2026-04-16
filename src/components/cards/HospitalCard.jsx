@@ -1,12 +1,13 @@
 import React from "react";
 import Card from "../ui/Card";
 import Button from "../ui/Button";
+import Chip from "../ui/Chip";
 
 const HospitalCard = ({ data }) => {
   if (!data) return null;
 
-  const isGovt =
-    data.sector === "govt" || data.sector === "semigov";
+  const normalizedSector = String(data.sector ?? "").trim().toLowerCase();
+  const isGovt = normalizedSector === "govt" || normalizedSector === "semigov";
 
   // ✅ TEMP STATUS LOGIC (inside component) for ui similiar to Wireframe - rishabh
   let status = "closed";
@@ -42,18 +43,14 @@ const HospitalCard = ({ data }) => {
         🏥
 
         {/* SECTOR BADGE */}
-        <span
-          className={`
-            absolute top-2 right-2 text-xs px-2 py-0.5 rounded-full font-semibold
-            ${
-              isGovt
-                ? "bg-[var(--primary)] text-white"
-                : "bg-[var(--family)] text-white"
-            }
-          `}
-        >
-          {data.sector}
-        </span>
+        <Chip
+          as="span"
+          customTone
+          label={String(data.sector || "").toUpperCase()}
+          className={`absolute top-2 right-2 text-xs px-2 py-0.5 font-semibold border-transparent shadow-sm ${
+            isGovt ? "bg-[var(--primary)] text-white" : "bg-[var(--accent)] text-white"
+          }`}
+        />
       </div>
 
       {/* BODY */}
@@ -68,7 +65,7 @@ const HospitalCard = ({ data }) => {
 
         {/* 📍 LOCATION + RATING  abhi distance nhi pta isseliye "--" laga rkha hai - rishabh*/}
         <p className="text-sm text-[var(--muted)] mt-1">
-          📍 {data.distance || "--"} · ⭐ {data.rating}
+          📍 {data.distance || data.city} · ⭐ {data.rating}
         </p>
 
         {/* 📞 PHONE */}
@@ -79,12 +76,13 @@ const HospitalCard = ({ data }) => {
         {/* TAGS */}
         <div className="flex flex-wrap gap-2 mt-3 text-xs">
           {tags.map((tag, i) => (
-            <span
+            <Chip
               key={i}
-              className="bg-[var(--bg)] text-[var(--muted)] px-2 py-0.5 rounded-md"
-            >
-              {tag}
-            </span>
+              as="span"
+              customTone
+              label={tag}
+              className="bg-[var(--bg)] border-[var(--bg)] text-[var(--muted)] px-2 py-0.5 rounded-md"
+            />
           ))}
         </div>
       </div>
@@ -94,32 +92,16 @@ const HospitalCard = ({ data }) => {
         
         {/* STATUS */}
         <div className="flex items-center gap-2 text-sm font-medium">
-          <span
-            className={`
-              h-2 w-2 rounded-full
-              ${
-                status === "open"
-                  ? "bg-green-500"
-                  : status === "emergency"
-                  ? "bg-[var(--primary)]"
-                  : "bg-[var(--danger)]"
-              }
-            `}
-          ></span>
-
-          <span
-            className={`
-              ${
-                status === "open"
-                  ? "text-[var(--primary)]"
-                  : status === "emergency"
-                  ? "text-[var(--primary)]"
-                  : "text-[var(--danger)]"
-              }
-            `}
-          >
-            {statusLabel}
-          </span>
+          <Chip
+            as="span"
+            customTone
+            label={`${status === "closed" ? "🔴" : "🟢"} ${statusLabel}`}
+            className={`text-xs px-3 py-1 border-transparent ${
+              status === "closed"
+                ? "bg-[var(--danger-lt)] text-[var(--danger)]"
+                : "bg-[var(--green-50)] text-[var(--primary)]"
+            }`}
+          />
         </div>
 
         {/* BUTTON */}

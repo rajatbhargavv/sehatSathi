@@ -19,7 +19,7 @@ const Sidebar = () => {
       {/* Top */}
       <div>
         <h1 className="text-xl font-bold text-[var(--primary)] mb-6">
-          CareBridge
+          SehatSathi
         </h1>
 
         <nav className="flex flex-col gap-2">

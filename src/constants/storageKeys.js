@@ -9,5 +9,7 @@ export const STORAGE_KEYS = {
     DOCTORS: "sehatsathi_doctors",
     REMINDERS: "sehatsathi_reminders",
     HOSPITALS: "sehatsathi_hospitals",
-    HEALTH_TIPS: "sehatsathi_health_tips"
+    HEALTH_TIPS: "sehatsathi_health_tips",
+    AUTH_ACCOUNTS: "sehatsathi_auth_accounts",
+    AUTH_SESSION: "sehatsathi_auth_session"
 };

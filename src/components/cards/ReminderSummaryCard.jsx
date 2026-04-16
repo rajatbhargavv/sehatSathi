@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import Card from "../ui/Card";
+import { useApp } from "../../app/providers/useApp";
 
 const isTimePast = (time) => {
   if (!time) return false;
@@ -14,9 +15,11 @@ const isTimePast = (time) => {
 
 export default function ReminderSummaryCard({
   reminders = [],
-  patientName = "Arjun Kumar",
-  monitoringAs = "Rahul Kumar (Son)",
+  patientName,
+  monitoringAs,
 }) {
+  const { activeProfile, account } = useApp();
+
   const summary = useMemo(() => {
     const total = reminders.length;
     const done = reminders.filter((r) => r?.status === "done").length;
@@ -38,7 +41,33 @@ export default function ReminderSummaryCard({
     };
   }, [reminders]);
 
-  const initials = (patientName || "A")
+  const resolvedPatientName = useMemo(() => {
+    if (patientName) return patientName;
+
+    if (activeProfile?.role === "elder") {
+      return activeProfile.name || "Elder";
+    }
+
+    const elderNames = (account?.elders ?? [])
+      .map((member) => member?.name)
+      .filter(Boolean);
+
+    if (elderNames.length === 0) return "Elder";
+    if (elderNames.length === 1) return elderNames[0];
+    return `${elderNames[0]} +${elderNames.length - 1}`;
+  }, [patientName, activeProfile, account]);
+
+  const resolvedMonitoringAs = useMemo(() => {
+    if (monitoringAs) return monitoringAs;
+
+    if (!activeProfile) return "Unknown";
+    if (activeProfile.relation) {
+      return `${activeProfile.name} (${activeProfile.relation})`;
+    }
+    return activeProfile.name || "Unknown";
+  }, [monitoringAs, activeProfile]);
+
+  const initials = (resolvedPatientName || "A")
     .split(" ")
     .filter(Boolean)
     .slice(0, 2)
@@ -56,10 +85,10 @@ export default function ReminderSummaryCard({
         </div>
         <div className="min-w-0">
           <div className="font-semibold text-lg truncate">
-            {patientName} — Today
+            {resolvedPatientName} — Today
           </div>
           <div className="text-sm text-white/80 truncate">
-            Monitoring as: {monitoringAs}
+            Monitoring as: {resolvedMonitoringAs}
           </div>
 
           <div className="flex items-center gap-2 mt-3 flex-wrap">

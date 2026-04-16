@@ -16,6 +16,14 @@ export const getReminders = () => {
   }
 };
 
+export const getRemindersByRelation = (relationId) => {
+  const all = getReminders();
+  const normalized = String(relationId ?? '').trim().toLowerCase();
+  if (!normalized) return all;
+
+  return all.filter((item) => String(item?.relationId ?? '').trim().toLowerCase() === normalized);
+};
+
 // Function to save reminders to localStorage - Rajat (synchronous)
 // This ensures reminders persist across page refreshes
 export const setReminders = (reminders) => {
@@ -41,6 +49,7 @@ export const addReminder = (reminder) => {
     category: reminder.category || "Medicine",
     alert: reminder.alert || "At time",
     notes: reminder.notes || "",
+    relationId: reminder.relationId || '',
     ...reminder,
   };
   const reminders = getReminders();
@@ -53,6 +62,19 @@ export const addReminder = (reminder) => {
 export const deleteReminder = (id) => {
   const reminders = getReminders();
   const filteredReminders = reminders.filter(r => r.id !== id);
+  setReminders(filteredReminders);
+  return id;
+};
+
+export const deleteReminderByRelation = (id, relationId) => {
+  const normalized = String(relationId ?? '').trim().toLowerCase();
+  const reminders = getReminders();
+  const filteredReminders = reminders.filter((item) => {
+    if (item.id !== id) return true;
+    if (!normalized) return false;
+    return String(item?.relationId ?? '').trim().toLowerCase() !== normalized;
+  });
+
   setReminders(filteredReminders);
   return id;
 };
@@ -70,12 +92,41 @@ export const toggleReminderStatus = (id) => {
   return updatedReminders.find((item) => item.id === id) ?? null;
 };
 
+export const toggleReminderStatusByRelation = (id, relationId) => {
+  const normalized = String(relationId ?? '').trim().toLowerCase();
+  const reminders = getReminders();
+  const updatedReminders = reminders.map((item) => {
+    const sameRelation =
+      !normalized || String(item?.relationId ?? '').trim().toLowerCase() === normalized;
+    if (item.id !== id || !sameRelation) return item;
+    const nextStatus = item?.status === 'done' ? 'pending' : 'done';
+    return { ...item, status: nextStatus };
+  });
+
+  setReminders(updatedReminders);
+  return updatedReminders.find((item) => item.id === id) ?? null;
+};
+
 // Update a reminder by id (e.g., editing name/time/frequency/notes)
 export const updateReminder = (id, updates = {}) => {
   const reminders = getReminders();
   const updatedReminders = reminders.map((item) => {
     if (item.id !== id) return item;
     return { ...item, ...updates, id: item.id };
+  });
+
+  setReminders(updatedReminders);
+  return updatedReminders.find((item) => item.id === id) ?? null;
+};
+
+export const updateReminderByRelation = (id, relationId, updates = {}) => {
+  const normalized = String(relationId ?? '').trim().toLowerCase();
+  const reminders = getReminders();
+  const updatedReminders = reminders.map((item) => {
+    const sameRelation =
+      !normalized || String(item?.relationId ?? '').trim().toLowerCase() === normalized;
+    if (item.id !== id || !sameRelation) return item;
+    return { ...item, ...updates, id: item.id, relationId: item.relationId };
   });
 
   setReminders(updatedReminders);

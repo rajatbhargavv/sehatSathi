@@ -46,7 +46,7 @@ export const hospitals = [
     emergencyAvailable: false,
     specialization: ['dentist', 'orthopedic'],
     openClose: { open: '09:00', close: '20:00' },
-    sector: 'goc',
+    sector: 'govt',
   },
   {
     id: 5,
@@ -94,7 +94,7 @@ export const hospitals = [
     emergencyAvailable: true,
     specialization: ['orthopedic', 'dentist'],
     openClose: { open: '07:30', close: '21:30' },
-    sector: 'goc',
+    sector: 'govt',
   },
   {
     id: 9,
@@ -142,7 +142,7 @@ export const hospitals = [
     emergencyAvailable: true,
     specialization: ['orthopedic', 'cardiologist'],
     openClose: { open: '06:00', close: '22:00' },
-    sector: 'goc',
+    sector: 'govt',
   },
   {
     id: 13,

@@ -9,11 +9,7 @@ const Header = ({
   showSearch = true,
   searchPlaceholder = "Search anything...",
 }) => {
-  const { role } = useApp();
-
-  const user = {
-    name: role === "elder" ? "Arjun Kumar" : "Rahul Kumar",
-  };
+  const { activeProfile } = useApp();
 
   const getGreeting = () => {
     const hour = new Date().getHours();
@@ -23,7 +19,7 @@ const Header = ({
   };
 
   const resolvedTitle = showGreeting
-    ? `${getGreeting()}, ${user.name} 👋`
+    ? `${getGreeting()}, ${activeProfile?.name || 'User'} 👋`
     : title;
 
   return (

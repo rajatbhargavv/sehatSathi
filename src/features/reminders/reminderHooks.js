@@ -1,37 +1,43 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
-  getReminders,
+  getRemindersByRelation,
   addReminder,
-  deleteReminder,
-  toggleReminderStatus,
-  updateReminder,
+  deleteReminderByRelation,
+  toggleReminderStatusByRelation,
+  updateReminderByRelation,
 } from '../../services/reminderService';
+import { useApp } from '../../app/providers/useApp';
 
 export const useReminders = () => {
-  const [reminders, setReminders] = useState(() => getReminders());
+  const { relationId } = useApp();
+  const [reminders, setReminders] = useState(() => getRemindersByRelation(relationId));
+
+  const refreshReminders = () => {
+    setReminders(getRemindersByRelation(relationId));
+  };
+
+  useEffect(() => {
+    refreshReminders();
+  }, [relationId]);
 
   const handleAddReminder = (reminder) => {
-    addReminder(reminder);
-    const updatedReminders = getReminders();
-    setReminders(updatedReminders);
+    addReminder({ ...reminder, relationId });
+    refreshReminders();
   };
 
   const handleDeleteReminder = (id) => {
-    deleteReminder(id);
-    const updatedReminders = getReminders();
-    setReminders(updatedReminders);
+    deleteReminderByRelation(id, relationId);
+    refreshReminders();
   };
 
   const handleToggleReminderStatus = (id) => {
-    toggleReminderStatus(id);
-    const updatedReminders = getReminders();
-    setReminders(updatedReminders);
+    toggleReminderStatusByRelation(id, relationId);
+    refreshReminders();
   };
 
   const handleUpdateReminder = (id, updates) => {
-    updateReminder(id, updates);
-    const updatedReminders = getReminders();
-    setReminders(updatedReminders);
+    updateReminderByRelation(id, relationId, updates);
+    refreshReminders();
   };
 
   return {
