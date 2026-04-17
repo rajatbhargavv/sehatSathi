@@ -6,7 +6,7 @@ const Header = ({
   title,
   subtitle,
   showGreeting = false,
-  showSearch = true,
+  showSearch = false,
   searchPlaceholder = "Search anything...",
 }) => {
   const { activeProfile } = useApp();

@@ -11,12 +11,12 @@ const MainLayout = () => {
     "/home": {
       showGreeting: true,
       subtitle: "Stay on top of your health today",
-      showSearch: true,
+      showSearch: false,
       searchPlaceholder: "Search anything...",
     },
     "/reminders": {
       title: "Reminders & Medications",
-      showSearch: true,
+      showSearch: false,
       searchPlaceholder: "Search reminders...",
     },
     "/doctors": {

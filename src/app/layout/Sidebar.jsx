@@ -10,7 +10,7 @@ const Sidebar = () => {
     { name: "Doctors", path: "/doctors", icon: "🩺" },
     { name: "Hospitals", path: "/hospitals", icon: "🏥" },
     { name: "Tips", path: "/health-tips", icon: "💡" },
-    { name: "Settings", path: "/settings", icon: "⚙️" },
+    // { name: "Settings", path: "/settings", icon: "⚙️" },
   ];
 
   return (
